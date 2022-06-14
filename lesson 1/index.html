@@ -17,41 +17,26 @@
         <header class="header">
             <nav class="header__list">
                 <button class="header__menu">menu</button>
-                <input type="text" class="header__search" v-model='search' />
-                <button class="header__search-button" type="button" @click="filterItems">search</button>
-
+                <search-input v-model="search" @input="filterItems"></search-input>
                 <div class="header__basket">
                     {{ calculate }}
-                    <button class="header__basket-button" type="button"
-                        @click="isVisibleCart=!isVisibleCart">basket</button>
+                    <custom-button @click="isVisibleCart=!isVisibleCart">basket</custom-button>
                 </div>
             </nav>
         </header>
         <main>
-            <div class="basket" v-if="isVisibleCart">
-                <ul class="basket__list">
-                    <li class="basket__item" v-for="item in products">
-                        <h2>{{ item.product_name }}</h2>
-                        <h3>{{ item.price }}</h3>
-                        <p>{{ item.quantity }}</p>
-                    </li>
-                </ul>
-            </div>
-
             <div class="catalog">
                 <div class="catalog__products-list" v-if="filteredItems!=0">
-                    <div class="catalog__item" v-for="item in filteredItems">
-                        <div class="catalog__item-img">product</div>
-                        <h3>{{ item.product_name }}</h3>
-                        <p>{{ item.price }}</p>
-                    </div>
+                    <good-item v-for="item in filteredItems" :item="item"></good-item>
                 </div>
                 <div class="catalog__empty" v-else>
                     <h2 class="catalog__empty-heading">НЕТ ДАННЫХ</h2>
                 </div>
             </div>
         </main>
-
+        <basket-goods v-if="isVisibleCart" @click="isVisibleCart=!isVisibleCart">
+            <basket-items v-for="item in products" :item="item"></basket-items>
+        </basket-goods>
     </div>
 
 

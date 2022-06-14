@@ -1,3 +1,10 @@
+#root {
+    display: grid;
+    grid-template-rows: max-content auto;
+    gap: 40px;
+    position: relative;
+}
+
 main {
     background-color: rgb(76, 157, 192);
     margin: 0 auto;
@@ -19,21 +26,45 @@ main {
     justify-content: space-between;
 }
 
-.basket {
-    display: none;
-    position: relative;
-    left: 545px;
+.fixed-area {
+    position: fixed;
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
-    background-color: rgb(55, 138, 174);
-    width: 350px;
-    border: 1px solid black;
-    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0, 0.5);
 }
 
-.basket__item {
-    display: flex;
-    justify-content: space-between;
+.basket-card {
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    display: grid;
+    grid-template-rows: max-content auto;
+}
+
+.basket-card__header {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto max-content;
+}
+
+.basket-card__header__title {
+    padding: 10px
+}
+
+.basket-card__header__delete-icon {
+    background-image: url("../img/delete_icon.png");
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.basket-card__content {
+    padding: 10px;
 }
 
 .catalog {
