@@ -35,7 +35,6 @@
             </div>
         </main>
         <basket-goods v-if="isVisibleCart" @click="isVisibleCart=!isVisibleCart">
-            <basket-items v-for="item in products" :item="item"></basket-items>
         </basket-goods>
     </div>
 

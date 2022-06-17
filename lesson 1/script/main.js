@@ -1,8 +1,9 @@
-    const GET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json'
-    const GET_BASKET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json'
+    const BASE_URL = `http://localhost:4747/`;
+    const GET_GOODS_ITEMS = `${BASE_URL}goods.json`;
+    const GET_BASKET_GOODS_ITEMS = `${BASE_URL}basket`;
 
     function service(url) {
-        return fetch(url).then((response => response.json()))
+        return fetch(url).then((res => res.json()))
     }
 
 
@@ -18,6 +19,11 @@
         })
 
         const basketGoods = Vue.component('basket-goods', {
+            data() {
+                return {
+                    basketGoodsItems: []
+                }
+            },
             template: `
                 <div class="fixed-area">
                     <div class="basket-card">
@@ -26,11 +32,19 @@
                             <div class="basket-card__header__delete-icon" @click="$emit('click')"></div>
                         </div>
                         <div class="basket-card__content">
-                        <slot></slot>
+                        <ul class="basket__list">
+                        <basket-items v-for="item in basketGoodsItems" :item="item"></basket-items>
+                        </ul>
                         </div>
                     </div>
                 </div>
-                `
+                `,
+                mounted() {
+                        service(GET_BASKET_GOODS_ITEMS).then((data) => {
+                            this.basketGoodsItems = data;
+                        })
+                    }
+                
         })
 
         const basketItems = Vue.component('basket-items', {
@@ -38,14 +52,13 @@
                 'item'
             ],
             template: `
-            <ul class="basket__list">
             <li class="basket__item">
                 <h2>{{ item.product_name }}</h2>
-                <h3>{{ item.price }}</h3>
-                <p>{{ item.quantity }}</p>
-
+                <h3>{{ item.price }} руб.</h3>
+                <button>+</button>
+                <p>{{ item.count }} шт.</p>
+                <button>-</button>
             </li>
-            </ul>
             `
         })
 
@@ -84,7 +97,6 @@
             data: {
                 items: [],
                 filteredItems: [],
-                products: [],
                 search: '',
                 isVisibleCart: false
             },
@@ -103,12 +115,7 @@
                         return product_name.match(new RegExp(this.search, 'gui'))
                     })
                 },
-                getBasket() {
-                    service(GET_BASKET_GOODS_ITEMS).then((data) => {
-                        this.products = data.contents;
-
-                    })
-                },
+                
             },
 
             computed: {
@@ -123,7 +130,6 @@
 
             mounted() {
                 this.fetchGoods();
-                this.getBasket();
             }
         })
     }

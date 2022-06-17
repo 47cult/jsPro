@@ -10,6 +10,7 @@ main {
     margin: 0 auto;
     width: 1024px;
 }
+
 .header {
     display: flex;
     margin: 0 auto;
@@ -33,7 +34,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0,0,0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .basket-card {
@@ -65,6 +66,18 @@ main {
 
 .basket-card__content {
     padding: 10px;
+}
+
+.basket__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.basket__item {
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px solid black;
 }
 
 .catalog {
