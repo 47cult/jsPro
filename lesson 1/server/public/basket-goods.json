@@ -1,0 +1,15 @@
+
+[
+    {
+       "id": "1",
+       "count": 1,
+       "product_name": "Мышка",
+       "price": 2300
+    },
+    {
+        "id": "2",
+        "count": 1,
+        "product_name": "Клавиатура",
+        "price": 2500
+     }
+ ]
