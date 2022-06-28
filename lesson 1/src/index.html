@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+</head>
+
+<body>
+    <div id="root">
+        <header class="header">
+            <nav class="header__list">
+                <button class="header__menu">menu</button>
+                <search-input v-model="search" @input="filterItems"></search-input>
+                <div class="header__basket">
+                    {{ calculate }}
+                    <custom-button @click="isVisibleCart=!isVisibleCart">basket</custom-button>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div class="catalog">
+                <div class="catalog__products-list" v-if="filteredItems!=0">
+                    <good-item v-for="item in filteredItems" :item="item"></good-item>
+                </div>
+                <div class="catalog__empty" v-else>
+                    <h2 class="catalog__empty-heading">НЕТ ДАННЫХ</h2>
+                </div>
+            </div>
+        </main>
+        <basket-goods v-if="isVisibleCart" @click="isVisibleCart=!isVisibleCart">
+        </basket-goods>
+    </div>
+
+
+</body>
+
+</html>
